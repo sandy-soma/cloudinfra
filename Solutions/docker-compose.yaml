@@ -1,0 +1,12 @@
+---
+version: "3.2"
+services:
+  csvserver:
+    image: infracloudio/csvserver
+    ports:
+      - "9393:9300"
+    volumes:
+      - type: bind
+        source: ./inputFile
+        target: /csvserver/inputdata
+...

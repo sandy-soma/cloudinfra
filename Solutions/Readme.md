@@ -66,5 +66,51 @@ gencsv.sh  inputFile
 [root@server-1 solution]#
 
 
+Part 2
+
+Removed all the docker containers 
+
+[root@server-1 ~]# docker rm -f $(docker ps -aq)
+6ba3304764f7
+[root@server-1 ~]# docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+[root@server-1 ~]#
+
+[root@server-1 ~]# docker container ls
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+[root@server-1 ~]#
+
+
+
+
+vi docker-compose.yaml
+version: "3.2"
+services:
+  csvserver:
+    image: infracloudio/csvserver
+    ports:
+      - "9393:9300"
+    volumes:
+      - type: bind
+        source: ./inputFile
+        target: /csvserver/inputdata
+
+
+        docker-compose up
+        Creating network "solution_default" with the default driver
+        Pulling csvserver (infracloudio/csvserver:)
+        ...
+        latest: Pulling from infracloudio/csvserver
+        ae43b40a9945: Pull complete
+        7bb33bb2db38: Pull complete
+        c82d72e1bb76: Pull complete
+        Digest: sha256:20bc5a93fac217270fe5c88d639d82c6ecb18fc908283e046d9a3917a840ec1f
+        Status: Downloaded newer image for infracloudio/csvserver:latest
+        Creating solution_csvserver_1 ... done
+        Attaching to solution_csvserver_1
+        csvserver_1  | 2022/02/10 13:16:40 listening on ****
+
+
+
 
 
